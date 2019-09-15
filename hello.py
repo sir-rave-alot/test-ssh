@@ -1,5 +1,12 @@
 # from grovepi import *
 import grovepi
+import signal
+import os
+
+def receiveSignal(signalNumber, frame):
+    print('Received:', signalNumber)
+    os._exit(0)
+signal.signal(signal.SIGINT, receiveSignal)
 
 ledbar = 5  # Connect the Grove LED Bar to digital port D5
 ultrasonic_ranger = 4  # Connect the Grove Ultrasonic Ranger to digital port D4
