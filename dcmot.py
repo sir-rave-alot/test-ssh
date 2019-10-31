@@ -3,8 +3,12 @@ import os
 
 def receiveSignal(signalNumber, frame):
     print('Received:', signalNumber)
-    io.write(D1, 0)  # Motortreiber ausschalten -> 0
-    io.write(D2, 0)  # Motortreiber ausschalten -> 0
+    io.write(A1, 0)
+    io.write(A2, 0)
+    io.write(B1, 0)
+    io.write(B2, 0)
+    io.write(D1, 1)  # Motortreiber ausschalten -> 0
+    io.write(D2, 1)  # Motortreiber ausschalten -> 0
     os._exit(0)
 
 signal.signal(signal.SIGINT, receiveSignal)
@@ -32,6 +36,7 @@ D1 = 12 				#N  -> Schaltet die Motortreiber ein
 D2 = 26 				#N/ -> Schaltet die Motortreiber ein
 
 d_w = input("Enter target Position : ")
+
 
 io.write(D1,1)
 io.write(D2,1)
