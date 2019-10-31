@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="stud@10.180.254.107:22">
+  <component name="PublishConfigData" serverName="stud@w006-metron-11.simple.eee.intern:22">
     <serverData>
       <paths name="stud@10.180.254.107:22">
         <serverdata>
@@ -16,7 +16,27 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="stud@eee-00255.simple.eee.intern:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/stud/mech" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="stud@w006-metron-03.simple.eee.intern:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/stud/mech" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="stud@w006-metron-11.simple.eee.intern:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/stud/mech" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

@@ -1,5 +1,3 @@
-# from grovepi import *
-import grovepi
 import signal
 import os
 
@@ -11,7 +9,7 @@ def receiveSignal(signalNumber, frame):
 
 signal.signal(signal.SIGINT, receiveSignal)
 
-
+###### YOUR CODE GOES HERE ######
 import pigpio
 import time
 
@@ -57,3 +55,5 @@ while(True): 			#Endlosschleife
     if f < 1000:
         f = f + 100
         t = 1/f
+
+###### YOUR CODE ENDS HERE ######
