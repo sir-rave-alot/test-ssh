@@ -3,12 +3,7 @@ import os
 
 def receiveSignal(signalNumber, frame):
     print('Received:', signalNumber)
-    io.write(A1, 0)
-    io.write(A2, 0)
-    io.write(B1, 0)
-    io.write(B2, 0)
-    io.write(D1, 1)  # Motortreiber ausschalten -> 0
-    io.write(D2, 1)  # Motortreiber ausschalten -> 0
+    motor.disable()
     os._exit(0)
 
 signal.signal(signal.SIGINT, receiveSignal)
@@ -17,6 +12,7 @@ signal.signal(signal.SIGINT, receiveSignal)
 import pigpio
 import time
 import grovepi
+from _dcmotor import *
 
 # GPIO handler object "io"
 io = pigpio.pi()
@@ -35,17 +31,12 @@ B2 = 13 				#B/ oder M4
 D1 = 12 				#N  -> Schaltet die Motortreiber ein
 D2 = 26 				#N/ -> Schaltet die Motortreiber ein
 
-d_w = input("Enter target Position : ")
-
-
-io.write(D1,1)
-io.write(D2,1)
-
-io.write(A2,0)
-io.set_PWM_frequency(A1, 2400)
-io.set_PWM_dutycycle(A1, 255/2)
+motor = DCMOTOR(io, D1, D2, A1, A2)
+motor.printDetails()
 
 while True:
+    v = input("Dutycycle ? : ")
+    motor.setDC(v)
     pass
 
 '''
