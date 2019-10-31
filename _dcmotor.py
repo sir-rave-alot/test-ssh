@@ -10,7 +10,10 @@ class DCMOTOR:
         self.X1 = X1
         self.X2 = X2
 
+        self.V_CC = 12
         self.PWM_FREQ = 3200
+        #self.DC_MIN = 0    # smallest possible dutycycle
+        self.DC_MAX = 255   # 100% Dutycycle
 
         # ENABLE POWERSTAGE
         self.IO.write(self.EN1, 1)
@@ -23,12 +26,25 @@ class DCMOTOR:
         self.IO.write(self.X2, 0)
 
     def printDetails(self):
+        print("~~~~~~~~~~~ MOTOR ~~~~~~~~~~~")
         print("GPIO Pins        : " + str(self.X1) + " ; " + str(self.X2))
-        print("PWM Frequency    : " + str(self.X1))
+        print("PWM Frequency    : " + str(self.PWM_FREQ) + "Hz")
+        print( "Supply Voltage  : " + str(self.V_CC) + "V")
+        print("~~~~~~~~~~~ ~~~~~ ~~~~~~~~~~~")
 
-    def setDC(self, v):
-        print("setDC to " + str(v))
-        self.IO.set_PWM_dutycycle(self.X1, v)
+    def setVoltage(self, v):
+        _v = int(v*(self.DC_MAX / self.V_CC))
+
+        if(abs(_v) > self.DC_MAX):
+            print("Voltage too high!")
+            return
+
+        if(v > 0):
+            self.IO.write(self.X2, 0)
+            self.IO.set_PWM_dutycycle(self.X1, abs(_v))
+        else:
+            self.IO.write(self.X1, 0)
+            self.IO.set_PWM_dutycycle(self.X2, abs(_v))
 
     def disable(self):
         # ENABLE POWERSTAGE
