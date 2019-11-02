@@ -33,12 +33,13 @@ io = pigpio.pi()
 motor = STEPPER(io, D1, D2, A1, A2, B1, B2)
 motor.printDetails()
 
-
 t = 0.1
 f = 1/t
 f_max = 1000
 
+'''
 while(True): 			#Endlosschleife
+
 
     motor.setPin(B1,1) 		#Schaltet B ein
     motor.setPin(B2,0) 		#Schaltet B/ aus
@@ -55,9 +56,41 @@ while(True): 			#Endlosschleife
     motor.setPin(A1,1)		#Schaltet A ein
     motor.setPin(A2,0)		#Schaltet A/ aus
     time.sleep(t)		    #Wartezeit in Sekunden bis zum naechsten Step
-
+    
     if f < f_max:
-        f = f + 100
-        t = 1/f
+    f = f + 100
+    t = 1/f
+
+'''
+steps_max = 14500 # whole distance
+
+steps = input("How many steps do you want to do ?  ")
+
+if(steps > steps_max):
+    print "Too many steps !!"
+    print "Abort."
+
+else:
+    for stepB in range(0, steps):
+        motor.stepBackward()
+        time.sleep(t)
+
+        if f < f_max:
+            f = f + 100
+            t = 1 / f
+
+    # reset ramp
+    t = 0.1
+    f = 1 / t
+
+    for stepF in range(0, steps):
+        motor.stepForward()
+        time.sleep(t)
+
+        if f < f_max:
+            f = f + 100
+            t = 1 / f
 
 ###### YOUR CODE ENDS HERE ######
+motor.disable()
+motor.disable()

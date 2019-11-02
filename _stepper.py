@@ -18,6 +18,8 @@ class STEPPER:
         self.DC_MIN = 0    # smallest possible dutycycle
         self.DC_MAX = 255   # 100% Dutycycle
 
+        self.STEP_STATE = 1
+
         self.V_OP = self.V_MAX
         self.DC_OP = int(self.V_OP*(self.DC_MAX / self.V_CC))
 
@@ -54,3 +56,29 @@ class STEPPER:
         self.IO.write(self.A2, 0)
         self.IO.write(self.B1, 0)
         self.IO.write(self.B2, 0)
+
+    def stepFSM(self):
+        if self.STEP_STATE == 1:
+            self.setPin(self.B1, 1)  # Schaltet B ein
+            self.setPin(self.B2, 0)  # Schaltet B/ aus
+        elif self.STEP_STATE == 2:
+            self.setPin(self.A1, 0)  # Schaltet A aus
+            self.setPin(self.A2, 1)  # Schaltet A/ ein
+        elif self.STEP_STATE == 3:
+            self.setPin(self.B1, 0)  # Schaltet B aus
+            self.setPin(self.B2, 1)  # Schaltet B/ ein
+        elif self.STEP_STATE == 4:
+            self.setPin(self.A1, 1)  # Schaltet A ein
+            self.setPin(self.A2, 0)  # Schaltet A/ aus
+
+    def stepForward(self):
+        self.stepFSM()
+        self.STEP_STATE += 1
+        if self.STEP_STATE == 5:
+            self.STEP_STATE = 1
+
+    def stepBackward(self):
+        self.stepFSM()
+        self.STEP_STATE -= 1
+        if self.STEP_STATE == 0:
+            self.STEP_STATE = 4
