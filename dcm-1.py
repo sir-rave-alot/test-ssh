@@ -29,17 +29,20 @@ io = pigpio.pi()
 motor = DCMOTOR(io, D1, D2, A1, A2)
 motor.printDetails()
 
-v = input("Eingabe Motorenspannung {-12 .. 12V} :   ")
-t = input("Eingabe Fahrtzeit {0 .. 5s} :   ")
 
-vt_max = 12*4 # whole distance done @12V in 4sec
+vt_max = 1000*12*4 # whole distance done @12V in 4sec
 
-if(v*t) <= vt_max:
-    motor.setVoltage(v)
-    time.sleep(t)
-else:
-    print "Product [Velocity] x [Time] too high!!"
-    print "Abort."
+while True:
+    v = input("Eingabe Motorenspannung {-12 .. 12V} :   ")
+    t = input("Eingabe Fahrtzeit {0 .. 5s} :   ")
+
+
+    if(v*t) <= vt_max:
+        motor.setVoltage(v)
+        time.sleep(t)
+    else:
+        print "Product [Velocity] x [Time] too high!!"
+        print "Abort."
 
 motor.disable()
 ###### YOUR CODE ENDS HERE ####

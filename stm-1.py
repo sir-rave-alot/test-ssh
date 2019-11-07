@@ -38,31 +38,16 @@ t = 0.1
 f = 1 / t
 f_max = 1000
 
-steps_max = 14500  # whole distance
+while (True):  # Endlosschleife
 
-while True:
-    steps = input("How many steps do you want to do ?  ")
+    motor.setPin(B1, 1)  # Schaltet B ein
+    motor.setPin(B2, 0)  # Schaltet B/ aus
+    time.sleep(t)  # Wartezeit in Sekunden bis zum naechsten Step
 
-    if (abs(steps) > steps_max):
-        print "Too many steps !!"
-        print "Abort."
-    else:
-        for stp in range(0, abs(steps)):
-            if steps > 0:
-                motor.stepForward()
-            else:
-                motor.stepBackward()
+    # TODO : komplettiere die Sequenz!
 
-            time.sleep(t)
+    if f < f_max:
+        f = f + 100
+    t = 1 / f
 
-            if f < f_max:
-                f = f + 100
-                t = 1 / f
-
-        stp = 0
-        # reset ramp
-        t = 0.1
-        f = 1 / t
-
-    motor.disable()
 ###### YOUR CODE ENDS HERE ######
