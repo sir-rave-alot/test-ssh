@@ -11,7 +11,7 @@ class DCMOTOR:
         self.X2 = X2
 
         self.V_CC = 12
-        self.PWM_FREQ = 3200
+        self.PWM_FREQ = 64000
         #self.DC_MIN = 0    # smallest possible dutycycle
         self.DC_MAX = 255   # 100% Dutycycle
 

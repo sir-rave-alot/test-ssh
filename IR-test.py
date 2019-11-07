@@ -3,6 +3,7 @@ import os
 
 def receiveSignal(signalNumber, frame):
     print('Received:', signalNumber)
+    motor.disable()
     os._exit(0)
 
 signal.signal(signal.SIGINT, receiveSignal)
@@ -12,38 +13,92 @@ import pigpio
 import grovepi
 import time
 
+from _dcmotor import *
+
+# Pin assignments
+A1 = 20 #A  or M1
+A2 = 21 #A/ or M2
+B1 = 6  #B  or M3
+B2 = 13 #B/ or M4
+D1 = 12 #N1 motordriver Enable 1
+D2 = 26 #N2 motordriver Enable 2
+
+# GPIO handler object
+io = pigpio.pi()
+
+# create dc motor handler object
+motor = DCMOTOR(io, D1, D2, A1, A2)
+motor.printDetails()
+
 # configure IR proximity sensor
 sensor = 0
 grovepi.pinMode(sensor, "INPUT")    # analog input 0
 v_adc_ref = 5                       # reference voltage of ADC = 5v
 sensor_value = 0                    # variable allocation for raw value
 
+toggler = 0
+reached = False
+reachCounter = 0
 
+Tc = float(0.01)
+up = float(0)
+ui = float(0)
+u = float(0)
+dist = float(0)
 
-n_buf = 11
-nh_buf = 6
-sensor_buf = [0] * n_buf
-avg_buf = [0] * n_buf
-for i in range(0, n_buf-1):
-    sensor_value = grovepi.analogRead(sensor)  # read infrared proximity
-    sensorwert = (float)(sensor_value) * v_adc_ref / 1024
-    dist = 2 * round(1.6361 * sensorwert * sensorwert - 12.745 * sensorwert + 24.26, 3)
-    sensor_buf[i] = dist
+K_p = input("Kp ?")
+K_i = input("Ki ?")
 
+while (True):
+    print "x = ", dist
+    dist_w = input("Position ? {0..50}mm")
 
-while True:
-    # data aquisition
-    sensor_value = grovepi.analogRead(sensor)  # read infrared proximity
-    #sensorwert = (float)(sensor_value) * (float)(v_adc_ref) / (float)(1024)
-    #dist = 2 * round(1.6361 * sensorwert * sensorwert - 12.745 * sensorwert + 24.26, 3)
+    while (reached != True):
+        # data aquisition
+        sensor_value = grovepi.analogRead(sensor)  # read infrared proximity
+        dist = round(77.77777778 + (float(sensor_value) * (-0.15873016)),0)
 
-    dist = round(77.77777778 + (float(sensor_value) * (-0.15873016)),0)
-    #sensor_buf[1:] + [dist]
+        # distance error
+        e = float(dist_w - dist)
 
-    print "D ->: " , dist
-    time.sleep(1)
+        # proportional share
+        up = float(K_p*e)
 
+        # integral share
+        ui = ui + float(Tc*e*K_i)
 
-    avg_buf = sensor_buf.sort()
+        # sum shares
+        u = float(up + ui)
+
+        if (u > 0):
+            u = 3+u*(9.0/12.0)
+        else:
+            u = -3 + u * (9.0 / 12.0)
+
+        # set control variable
+        motor.setVoltage(u)
+
+        if(e == 0):
+            reachCounter += 1
+        else:
+            reachCounter = 0
+
+        if(reachCounter > 5):
+            reached = True
+
+        print u
+        #time.sleep(0.005)
+
+        # TESTPIN
+        if (toggler == 0):
+            toggler = 1
+        else:
+            toggler = 0
+        #
+        io.write(B1, toggler)
+
+    motor.disable()
+    reached = False
+    ui = 0
 
 ###### YOUR CODE ENDS HERE ####
