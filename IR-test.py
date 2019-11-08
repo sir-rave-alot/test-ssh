@@ -47,7 +47,10 @@ u = float(0)
 dist = float(0)
 
 K_p = input("Kp ?")
-K_i = input("Ki ?")
+uf = input("U_f ?")
+K_i = 0
+sign = 0
+#K_i = input("Ki ?")
 
 while (True):
     print "x = ", dist
@@ -68,7 +71,10 @@ while (True):
         ui = ui + float(Tc*e*K_i)
 
         # sum shares
-        u = float(up + ui)
+        if (e != 0):
+            sign = float(e/abs(e))
+
+        u = float(up + ui + sign*uf)
 
         if (u > 0):
             u = 3+u*(9.0/12.0)

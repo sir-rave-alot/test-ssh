@@ -37,7 +37,7 @@ class DCMOTOR:
 
         if(abs(_v) > self.DC_MAX):
             print("Voltage too high!")
-            return
+            _v = (_v/abs(_v)) * float(self.DC_MAX)
 
         if(v > 0):
             self.IO.write(self.X2, 0)
