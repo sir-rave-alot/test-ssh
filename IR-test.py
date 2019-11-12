@@ -92,7 +92,7 @@ while (True):
         if(reachCounter > 5):
             reached = True
 
-        print u
+        print dist, ";", u
         #time.sleep(0.005)
 
         # TESTPIN

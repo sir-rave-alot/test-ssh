@@ -8,7 +8,7 @@ def receiveSignal(signalNumber, frame):
 
 signal.signal(signal.SIGINT, receiveSignal)
 
-###### YOUR CODE GOES HERE ######
+###### YOUR CODE GOES HERE #####
 import pigpio
 import time
 

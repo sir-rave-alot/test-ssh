@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="stud@w006-metron-03.simple.eee.intern:22">
+  <component name="PublishConfigData" serverName="stud@w006-metron-08.simple.eee.intern:22">
     <serverData>
       <paths name="stud@10.180.254.107:22">
         <serverdata>
@@ -24,6 +24,13 @@
         </serverdata>
       </paths>
       <paths name="stud@w006-metron-03.simple.eee.intern:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/stud/mech" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="stud@w006-metron-08.simple.eee.intern:22">
         <serverdata>
           <mappings>
             <mapping deploy="/home/stud/mech" local="$PROJECT_DIR$" />
