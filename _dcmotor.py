@@ -36,7 +36,7 @@ class DCMOTOR:
         _v = int(v*(self.DC_MAX / self.V_CC))
 
         if(abs(_v) > self.DC_MAX):
-            print("Voltage too high!")
+            #print("Voltage too high!")
             _v = (_v/abs(_v)) * float(self.DC_MAX)
 
         if(v > 0):

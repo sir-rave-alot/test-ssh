@@ -50,7 +50,7 @@ K_p = input("Kp ?")
 uf = input("U_f ?")
 K_i = 0
 sign = 0
-#K_i = input("Ki ?")
+
 
 while (True):
     print "x = ", dist
