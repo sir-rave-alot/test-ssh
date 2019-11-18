@@ -3,7 +3,6 @@ import os
 
 def receiveSignal(signalNumber, frame):
     print('Received:', signalNumber)
-    motor.disable()
     os._exit(0)
 
 signal.signal(signal.SIGINT, receiveSignal)
@@ -93,7 +92,5 @@ print 'p-control-1.py '
 print '~~~~~~ ~~~~~~~~~~~~~~ ~~~~~~'
 print 'Done.'
 print '~~~~~~ ~~~~~~~~~~~~~~ ~~~~~~'
-#back-Calculation
-#res = (1/v-b)/a;
 
 ###### YOUR CODE ENDS HERE ####
