@@ -22,8 +22,8 @@ sensor_value = 0                    # variable allocation for raw value
 x_estimated = float(0)
 
 ## TODO: REPLACE (a,b) WITH YOUR CALIBRATION VALUES
-a = 7.18854109485e-05
-b = 0.00181664284792
+a = 7.37743907411e-05
+b = 0.00251445813427
 
 print '~~~~~~ ~~~~~~~~~~~~~~ ~~~~~~'
 print '~~~~~~ IR-VERIFICATION ~~~~~~'

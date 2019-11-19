@@ -27,7 +27,7 @@ D2 = 26 #N2 motordriver Enable 2
 io = pigpio.pi()
 
 # create dc motor handler object
-motor = DCMOTOR(io, D1, D2, A1, A2)
+motor = DCMOTOR(io, D1, D2, A2, A1)
 motor.printDetails()
 
 # configure IR proximity sensor
@@ -37,8 +37,8 @@ v_adc_ref = 5                       # reference voltage of ADC = 5v
 sensor_value = 0                    # variable allocation for raw value
 
 ## TODO: REPLACE (a,b) WITH YOUR CALIBRATION VALUES
-a = 7.18854109485e-05
-b = 0.00181664284792
+a =  7.37743907411e-05
+b =  0.00251445813427
 
 reached = False
 reachCounter = 0
@@ -57,7 +57,7 @@ while (True):
     print 'Format above:'
     print '[distance] ; [motor voltage] '
     print "x = ", dist
-    dist_w = input("Position ? {10..50}mm")
+    dist_w = input("Position ? {5..40}mm")
 
     while (reached != True):
         # data aquisition

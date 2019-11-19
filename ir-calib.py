@@ -23,8 +23,8 @@ sensor_value = 0                    # variable allocation for raw value
 dist = float(0)
 
 nof_samples = 10
-x_min = float(10)
-x_max = float(55)
+x_min = float(0)
+x_max = float(45)
 
 v_m_min = float(0)
 v_m_max = float(0)
@@ -36,7 +36,7 @@ print '~~~~~~ IR-CALIBRATION ~~~~~~'
 print '~~~~~~ ~~~~~~~~~~~~~~ ~~~~~~'
 
 while(inp != 'start'):
-    print 'Move to ', x_min, 'mm'
+    print 'Move to ', x_min, 'mm (MOST APPROXIMATE TO SENSOR)'
     inp = raw_input('Enter "start" to start measurements.')
 
 for i in range(0,nof_samples):
@@ -49,13 +49,13 @@ i = 0
 inp = None
 
 while(inp != 'start'):
-    print 'Move to ', x_max, 'mm'
+    print 'Move to ', x_max, 'mm (MOST DISTANCE FROM SENSOR)'
     inp = raw_input('Enter "start" to start measurements.')
 
 for i in range(0,nof_samples):
     sensor_value = grovepi.analogRead(sensor)
     v_m_max += sensor_value
-    print 'ADC-Value [', i, '] =' , sensor_value
+    print 'ADC-Value [', i, '] =', sensor_value
     time.sleep(0.5)
 
 #####
