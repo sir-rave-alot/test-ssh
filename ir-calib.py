@@ -87,7 +87,7 @@ print 'a = ', a
 print 'b = ', b
 print '~~~~~~ ~~~~~~~~~~~~~~ ~~~~~~'
 print 'Copy these values into : '
-print 'ps-2.py '
+print 'ps-1.py '
 print 'p-control-1.py '
 print '~~~~~~ ~~~~~~~~~~~~~~ ~~~~~~'
 print 'Done.'
